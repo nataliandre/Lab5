@@ -32,16 +32,56 @@ public class Main {
 
         //first step (initializeTasks)
         for (int i = 0; i<iTasksCount;i++){
-            Random r = new Random();
-            int iRandomProcessor = r.nextInt(iProcessors);
-
-
+            setTaskToProcessor(iProcessors, processorArray, tasksArray[i], fMaxPercentBorder);
         }
+
+        //second step
+//        for (int i =0; i<processorArray.length;i++) {
+//            if(processorArray.length < )
+//        }
 
 
 
         //generator.printTasksArray(tasksArray);
 
 
+    }
+
+    /**
+     *
+     * @param iProcessors
+     * @param processorArray
+     * @param taskCurrent
+     * @param fMaxPercentBorder
+     */
+    public static void setTaskToProcessor(
+            int iProcessors,
+            Processor[] processorArray,
+            Task taskCurrent,
+            float fMaxPercentBorder
+    ){
+        Random r = new Random();
+        int iRandomProcessor = r.nextInt(iProcessors);
+          if(
+                processorArray[iRandomProcessor].fProcessorLoading > fMaxPercentBorder
+                &&
+                !allProccessorsAreLoaded(processorArray[iRandomProcessor],processorArray,fMaxPercentBorder)
+            ){
+            setTaskToProcessor(iProcessors, processorArray, taskCurrent, fMaxPercentBorder);
+        }
+        else{
+            processorArray[iRandomProcessor].setfProcessorLoading(taskCurrent.fProcessorPercent);
+            taskCurrent.setExecutedRpocessor(iRandomProcessor);
+        }
+    }
+
+    public static boolean allProccessorsAreLoaded(Processor processorCurrent, Processor[] processorArray,float fMaxPercentBorder){
+        boolean bResult = true;
+        for (int i = 1; i<= processorArray.length;i++) {
+            if(processorArray[i].fProcessorLoading < fMaxPercentBorder){
+                bResult = false;
+            }
+        }
+        return bResult;
     }
 }
