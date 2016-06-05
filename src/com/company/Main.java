@@ -13,7 +13,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        int iTasksCount = 30;
+        int iTasksCount = 40;
         int iProcessors = 10;
         float fMaxPercentBorder = new Float("0.8");
         float fMinPercentBorder = new Float("0.5");
@@ -33,6 +33,9 @@ public class Main {
         //first step (initializeTasks)
         for (int i = 0; i<iTasksCount;i++){
             setTaskToProcessor(iProcessors, processorArray, tasksArray[i], fMaxPercentBorder);
+        }
+        for(int i = 0;i<processorArray.length;i++){
+            System.out.println("Loading processor : "+processorArray[i].fProcessorLoading+", processor Num : "+i);
         }
 
         //second step
